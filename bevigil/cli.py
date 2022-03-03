@@ -1,0 +1,162 @@
+import os
+import json
+import click
+from .Enumerator import BeVigil
+from .settings import BEVIGIL_CONFIG_DIR
+from .helpers import getAPIKey
+from .exceptions import InvalidAPIKeyError , APIError
+
+# To enable both --help and -h to show help message
+CONTEXT_SETTINGS = dict(help_option_names = ["-h" , "--help"])
+
+@click.group(context_settings = CONTEXT_SETTINGS)
+def cli():
+    """bevigil-cli is a CLI tool to query BeVigil's OSINT API for asset extraction"""
+    pass
+
+@cli.group()
+def enum():
+    """`enum` is a group of commands used for enumerating different assets using OSINT API of BeVigil"""
+    pass
+
+@cli.command("init")
+@click.option("--api-key" , help = "API Key to use" , type = str , metavar = "<API Key>" , required = True)
+def init(api_key):
+    # Creating config directory
+    bevigil_dir = os.path.expanduser(BEVIGIL_CONFIG_DIR)
+    if not os.path.isdir(bevigil_dir):
+        try:
+            os.makedirs(bevigil_dir)
+        except OSError:
+            raise click.ClickException("Unable to create BeVigil configuration directory")
+
+    # Checking if the API key is valid
+    api_key = api_key.strip()
+    bevigil = BeVigil(api_key = api_key)
+    if not bevigil.validateKey():
+        raise click.ClickException("Invalid API key")
+    
+    # Store the API key in config dir if valid
+    api_key_file = bevigil_dir + "/api_key"
+    with open(api_key_file , "w") as file_obj:
+        file_obj.write(api_key)
+        click.echo(click.style("API key successfully configured" , fg = "green"))
+
+    # Make the file read only
+    os.chmod(api_key_file , 0o600)
+
+
+@enum.command("packages" , short_help = "Request packages associated associated with a domain/subdomain")
+@click.option("--domain" , type = str , help = "domain" , metavar = "<domain>")
+@click.option("--subdomain" , type = str , help = "subdomain" , metavar = "<subdomain>")
+def getPackages(domain , subdomain):
+    api_key = getAPIKey()
+    bevigil = BeVigil(api_key = api_key)
+    try:
+        if domain:
+            packages = bevigil.getPackagesFromDomain(domain = domain)
+        elif subdomain:
+            packages = bevigil.getPackagesFromSubdomain(subdomain = subdomain)
+        else:
+            raise click.ClickException("Please specify either domain or subdomain to enumerate packages for")
+    except InvalidAPIKeyError:
+        raise click.ClickException("Invalid API Key")
+    print(json.dumps(packages , indent = 3))
+
+
+@enum.command("wordlist" , short_help = "Request a wordlist for a package")
+@click.option("--package" , type = str , help = "Package to request wordlist for" , metavar = "<Package ID>" , required = True)
+def getWordlist(package):
+    api_key = getAPIKey()
+    bevigil = BeVigil(api_key = api_key)
+    try:
+        wordlist = bevigil.getWordlistFromPackage(package_id = package)
+    except APIError as err:
+        raise click.ClickException(err.msg)
+    except InvalidAPIKeyError:
+        raise click.ClickException("Invalid API Key")
+    print(json.dumps(wordlist , indent = 3))
+
+
+@enum.command("hosts" , short_help = "Request hosts present in an android package")
+@click.option("--package" , type = str , help = "Package to request hosts for" , metavar = "<Package ID>" , required = True)
+def getHosts(package):
+    api_key = getAPIKey()
+    bevigil = BeVigil(api_key = api_key)
+    try:
+        hosts = bevigil.getHostsFromPackage(package_id = package)
+    except APIError as err:
+        raise click.ClickException(err.msg)
+    except InvalidAPIKeyError:
+        raise click.ClickException("Invalid API Key")
+    print(json.dumps(hosts , indent = 3))
+
+
+@enum.command("s3" , short_help = "Request S3 buckets associated with a package or a keyword")
+@click.option("--package" , type = str , help = "Package to request S3 buckets information for" , metavar = "<Package ID>")
+@click.option("--keyword" , type = str , help = "Keyword to request S3 buckets information for" , metavar = "<Keyword>")
+def getS3(package , keyword):
+    api_key = getAPIKey()
+    bevigil = BeVigil(api_key = api_key)
+    try:
+        if package:
+            buckets = bevigil.getS3bucketsFromPackage(package_id = package)
+        elif keyword:
+            buckets = bevigil.getS3bucketsFromKeyword(keyword = keyword)
+        else:
+            raise click.ClickException("Please specify --package/--keyword for requesting S3 buckets")
+    except APIError as err:
+        raise click.ClickException(err.msg)
+    except InvalidAPIKeyError:
+            raise click.ClickException("Invalid API Key")
+    print(json.dumps(buckets , indent = 3))
+
+
+@enum.command("params" , short_help = "Request params associated with an android package")
+@click.option("--package" , type = str , help = "Package to request params for" , metavar = "<Package ID>" , required = True)
+def getParams(package):
+    api_key = getAPIKey()
+    bevigil = BeVigil(api_key = api_key)
+    try:
+        params = bevigil.getParamsFromPackage(package_id = package)
+    except APIError as err:
+        raise click.ClickException(err.msg)
+    except InvalidAPIKeyError:
+        raise click.ClickException("Invalid API Key")
+    print(json.dumps(params , indent = 3))
+
+
+@enum.command("subdomains" , short_help = "Request subdomains associated with a domain")
+@click.option("--domain" , type = str , help = "Domain to request Subdomains for" , metavar = "<Domain>" , required = True)
+def getSubdomains(domain):
+    api_key = getAPIKey()
+    bevigil = BeVigil(api_key = api_key)
+    try:
+        subdomains = bevigil.getSubdomainsFromDomain(domain = domain)
+    except APIError as err:
+        raise click.ClickException(err.msg)
+    except InvalidAPIKeyError:
+        raise click.ClickException("Invalid API Key")
+    print(json.dumps(subdomains , indent = 3))
+
+
+@enum.command("urls" , short_help = "Request URLs associated with a domain")
+@click.option("--domain" , type = str , help = "Domain to request URLs for" , metavar = "<Domain>" , required = True)
+def getURLs(domain):
+    api_key = getAPIKey()
+    bevigil = BeVigil(api_key = api_key)
+    try:
+        urls = bevigil.getUrlsFromDomain(domain = domain)
+    except APIError as err:
+        raise click.ClickException(err.msg)
+    except InvalidAPIKeyError:
+        raise click.ClickException("Invalid API Key")
+    print(json.dumps(urls , indent = 3))
+
+
+def main():
+    cli()
+
+
+if __name__ == "__main__":
+    main()
