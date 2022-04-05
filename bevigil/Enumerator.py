@@ -6,7 +6,7 @@ class BeVigil:
     def __init__(self , api_key):
         self.api_key = api_key.strip()
         self._session = requests.Session()
-        self.bevigil_api_url = "http://192.0.0.170:9000"
+        self.bevigil_api_url = "https://osint.bevigil.com"
 
 
     def getWordlistFromPackage(self , package_id):
