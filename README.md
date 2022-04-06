@@ -1,68 +1,51 @@
 bevigil-cli
 =================
 
-This package provides a unified command line interface to BeVigil OSINT.
+This package provides a unified command line interface and python library for using BeVigil OSINT API.
 
 Getting Started
 ---------------
 
-This README is for the BeVigil OSINT CLI version 1.
-
-Requirements
-------------
-
-The BeVigil-osint-cli package works on Python versions:
-
--  3.6.x and greater
--  3.7.x and greater
--  3.8.x and greater
--  3.9.x and greater
--  3.10.x and greater
-
 Installation
 ------------
-Installation of the BeVigil OSINT CLI and its dependencies use a range of packaging
-features provided by ``pip`` and ``setuptools``. To ensure smooth installation,
-it's recommended to use:
 
-- ``pip``: 9.0.2 or greater
-- ``setuptools``: 36.2.0 or greater
-
-The safest way to install the BeVigil OSINT CLI is to use [pip](https://pip.pypa.io/en/stable/) in a ``virtualenv``:
-
-
+The safest way to install the BeVigil OSINT CLI is to use [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
-   $ python -m pip install bevigil-cli
+   $ pip3 install bevigil-cli
 ```
 
-or, if you are not installing in a ``virtualenv``, to install globally:
-
-```bash
-   $ sudo python -m pip install bevigil-cli
-```
-
-or for your user:
-
-```bash
-   $ python -m pip install --user bevigil-cli
-```
-
-If you have the bevigil-cli package installed and want to upgrade to the
+If you already have the bevigil-cli package installed and want to upgrade to the
 latest version, you can run:
 
 ```bash
-   $ python -m pip install --upgrade bevigil-cli
+   $ pip3 install --upgrade bevigil-cli
 ```
 
 This will install the bevigil-cli package as well as all dependencies.
 
-Configuration
+
+Usage
 ------------
 
-Before using the BeVigil OSINT CLI, you need to configure your api key.
-You can do this using the ``bevigil-cli init`` command:
+Initialization
+------------
+
+Before using the bevigil-cli to extract assets, you need to configure your api key.
+You can do this using the ``init`` command:
 
 ```bash
    $ bevigil-cli init --api-key <API_KEY>
+```
+
+To get an API key, you can register at [BeVigil's website](https://bevigil.com/osint-api)
+
+
+Enumeration
+------------
+
+Once the API key is configured, you can request BeVigil's OSINT API for different types of assets. The ``enum`` command consists of subcommands to enumerate different assets collected by BeVigil OSINT API. Following are all the supported subcommands under ``enum`` group including their options.
+
+```
+
 ```
