@@ -3,7 +3,7 @@ import os
 
 import click
 
-from .Enumerator import BeVigil
+from .enumerator import BeVigil
 from .exceptions import InvalidAPIKeyError, APIError
 from .helpers import getAPIKey
 from .settings import BEVIGIL_CONFIG_DIR
@@ -20,13 +20,14 @@ def cli():
 
 @cli.group()
 def enum():
-    """`enum` is a group of commands used for enumerating different assets using OSINT API of BeVigil"""
+    """Enumerate assets using BeVigil OSINT API"""
     pass
 
 
 @cli.command("init")
 @click.option("--api-key", help="API Key to use", type=str, metavar="<API Key>", required=True)
 def init(api_key):
+    """Initialize bevigil-cli using API key"""
     # Creating config directory
     bevigil_dir = os.path.expanduser(BEVIGIL_CONFIG_DIR)
     if not os.path.isdir(bevigil_dir):
