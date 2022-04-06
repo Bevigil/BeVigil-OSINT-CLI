@@ -1,6 +1,5 @@
 import json
 import os
-
 import click
 
 from .enumerator import BeVigil
@@ -14,7 +13,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 @click.group(context_settings=CONTEXT_SETTINGS)
 def cli():
-    """bevigil-cli is a CLI tool to query BeVigil's OSINT API for asset extraction"""
+    """bevigil-cli is a tool for querying OSINT API of BeVigil for asset extraction"""
     pass
 
 
