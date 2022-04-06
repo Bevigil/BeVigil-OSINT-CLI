@@ -13,7 +13,16 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 @click.group(context_settings=CONTEXT_SETTINGS)
 def cli():
-    """bevigil-cli is a tool for querying OSINT API of BeVigil for asset extraction"""
+    """\033[92m ███████████                                        █████    ███████   
+░███░░░░░███                                       ░░███   ███░░░░░███ 
+ ░███    ░███   ██████   ██████   ██████  ████████   ░███  ███     ░░███
+ ░██████████   ███░░███ ███░░███ ███░░███░░███░░███  ░███ ░███      ░███
+ ░███░░░░░███ ░███████ ░███ ░░░ ░███ ░███ ░███ ░███  ░███ ░███      ░███
+ ░███    ░███ ░███░░░  ░███  ███░███ ░███ ░███ ░███  ░███ ░░███     ███ 
+ █████   █████░░██████ ░░██████ ░░██████  ████ █████ █████ ░░░███████░  
+░░░░░   ░░░░░  ░░░░░░   ░░░░░░   ░░░░░░  ░░░░ ░░░░░ ░░░░░    ░░░░░░░\033[0m\n
+
+ReconIO is a tool for querying OSINT API of BeVigil for asset extraction"""
     pass
 
 
