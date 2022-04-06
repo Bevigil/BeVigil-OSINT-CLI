@@ -1,5 +1,6 @@
 import requests
 
+from .settings import BEVIGIL_API_URL
 from .exceptions import APIError, InvalidAPIKeyError
 
 
@@ -8,7 +9,7 @@ class BeVigil:
     def __init__(self, api_key):
         self.api_key = api_key.strip()
         self._session = requests.Session()
-        self.bevigil_api_url = "https://osint.bevigil.com"
+        self.bevigil_api_url = BEVIGIL_API_URL
 
     def getWordlistFromPackage(self, package_id):
         """
