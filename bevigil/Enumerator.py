@@ -1,16 +1,17 @@
 import requests
-from .exceptions import APIError , InvalidAPIKeyError
+
+from .exceptions import APIError, InvalidAPIKeyError
+
 
 class BeVigil:
 
-    def __init__(self , api_key):
+    def __init__(self, api_key):
         self.api_key = api_key.strip()
         self._session = requests.Session()
         self.bevigil_api_url = "https://osint.bevigil.com"
 
-
-    def getWordlistFromPackage(self , package_id):
-        '''
+    def getWordlistFromPackage(self, package_id):
+        """
         Returns wordlist created from package
         
         Parameters:
@@ -20,12 +21,11 @@ class BeVigil:
         Returns:
         name : wordlist
         type : dict
-        '''
-        return self._request(endpoint = f"/api/{package_id}/wordlist/")
+        """
+        return self._request(endpoint=f"/api/{package_id}/wordlist/")
 
-
-    def getHostsFromPackage(self , package_id):
-        '''
+    def getHostsFromPackage(self, package_id):
+        """
         Returns hosts associated with package
         
         Parameters:
@@ -35,12 +35,11 @@ class BeVigil:
         Returns:
         name : hosts
         type : dict
-        '''
-        return self._request(endpoint = f"/api/{package_id}/hosts/")
+        """
+        return self._request(endpoint=f"/api/{package_id}/hosts/")
 
-
-    def getS3bucketsFromPackage(self , package_id):
-        '''
+    def getS3bucketsFromPackage(self, package_id):
+        """
         Returns S3 buckets associated with package
         
         Parameters:
@@ -50,12 +49,11 @@ class BeVigil:
         Returns:
         name : S3_buckets
         type : dict
-        '''
-        return self._request(endpoint = f"/api/{package_id}/S3-buckets/")
+        """
+        return self._request(endpoint=f"/api/{package_id}/S3-buckets/")
 
-
-    def getPackagesFromDomain(self , domain):
-        '''
+    def getPackagesFromDomain(self, domain):
+        """
         Returns packages associated with the domain
         
         Parameters:
@@ -65,12 +63,11 @@ class BeVigil:
         Returns:
         name : Packages
         type : dict
-        '''
-        return self._request(endpoint = f"/api/{domain}/apps/")
+        """
+        return self._request(endpoint=f"/api/{domain}/apps/")
 
-
-    def getPackagesFromSubdomain(self , subdomain):
-        '''
+    def getPackagesFromSubdomain(self, subdomain):
+        """
         Returns packages associated with the Subdomain
         
         Parameters:
@@ -80,13 +77,12 @@ class BeVigil:
         Returns:
         name : Packages
         type : dict
-        '''
+        """
         return self._request(f"/api/{subdomain}/getAppsX")
 
-
-    def getParamsFromPackage(self , package_id):
-        '''
-        Returns parametres associated with the Package ID
+    def getParamsFromPackage(self, package_id):
+        """
+        Returns parameters associated with the Package ID
         
         Parameters:
         name : package_id
@@ -95,12 +91,11 @@ class BeVigil:
         Returns:
         name : Parameters
         type : dict
-        '''
+        """
         return self._request(f"/api/{package_id}/params/")
 
-
-    def getSubdomainsFromDomain(self , domain):
-        '''
+    def getSubdomainsFromDomain(self, domain):
+        """
         Returns Subdomains associated with a domain
         
         Parameters:
@@ -110,14 +105,13 @@ class BeVigil:
         Returns:
         name : Subdomains
         type : dict
-        '''
+        """
         return self._request(f"/api/{domain}/subdomains/")
 
-
-    def getUrlsFromDomain(self , domain):
-        '''
+    def getUrlsFromDomain(self, domain):
+        """
         Returns URLs associated with a domain
-        
+
         Parameters:
         name : domain
         type : str
@@ -125,14 +119,13 @@ class BeVigil:
         Returns:
         name : URLs
         type : dict
-        '''
+        """
         return self._request(f"/api/{domain}/urls/")
 
-
-    def getS3bucketsFromKeyword(self , keyword):
-        '''
+    def getS3bucketsFromKeyword(self, keyword):
+        """
         Returns S3 buckets data associated with the keyword
-        
+
         Parameters:
         name : keyword
         type : str
@@ -140,55 +133,50 @@ class BeVigil:
         Returns:
         name : S3 buckets data
         type : dict
-        '''
+        """
         return self._request(f"/api/{keyword}/S3-keyword/")
 
-    
     def validateKey(self):
-        '''
-        Checks whether or not the API key is valid
+        """
+        Checks whether the API key is valid
 
         Returns:
         type : bool
         True when key is valid otherwise False
-        '''
+        """
         api_response = self._request(f"/api/keycheck/?token={self.api_key}")
         return api_response["valid"]
 
-    
-    def _request(self , endpoint , method = "get"):
-        '''
-        Internal function to send HTTP request to API server and retrieve contents
-        '''
+    def _request(self, endpoint, method="get"):
+        """
+        Internal function to send HTTP requests to API server and retrieve contents
+        """
 
         # Constructing the function URL
         function_url = f"{self.bevigil_api_url}{endpoint}"
 
         # Adding API key in headers
         headers = {
-            "X-Access-Token" : self.api_key ,
-            "Accept" : "application/json"
+            "X-Access-Token": self.api_key,
+            "Accept": "application/json"
         }
         try:
             if method.lower() == "get":
-                api_response = self._session.get(function_url , headers = headers)
+                api_response = self._session.get(function_url, headers=headers)
             elif method.lower() == "post":
-                api_response = self._session.post(function_url , headers = headers)
+                api_response = self._session.post(function_url, headers=headers)
         except Exception:
             raise APIError("Unable to connect to BeVigil API")
-        
 
         # Check if the API key was valid
         if api_response.status_code == 401:
             raise InvalidAPIKeyError("Invalid API Key")
-
 
         # Try parsing the JSON response
         try:
             json_data = api_response.json()
         except Exception:
             raise APIError("Unable to parse JSON response")
-
 
         # If any other error occurs
         if api_response.status_code == 400:
@@ -197,5 +185,4 @@ class BeVigil:
             else:
                 raise APIError("Unexpected Error Occurred")
 
-        
         return json_data
