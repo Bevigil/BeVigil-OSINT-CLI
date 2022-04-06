@@ -1,4 +1,4 @@
-bevigil-osint-cli
+bevigil-cli
 =================
 
 This package provides a unified command line interface to BeVigil OSINT.
