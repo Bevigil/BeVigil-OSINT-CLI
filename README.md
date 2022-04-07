@@ -62,10 +62,207 @@ Commands:
   wordlist    Request a wordlist for a package
 ```
 
-Examples
+Commands Examples
+-------------------
+
+`wordlist`
 ------------
 
-* To request a wordlist crafted from an android pacakge:
+To request a wordlist crafted from an android pacakge:
 ```bash
+$ bevigil-cli enum wordlist --package "com.whatsapp"
+```
+```
+{
+   "package_id": "com.whatsapp",
+   "raw_wordlist": [
+      "header.json",
+      "content.json",
+      "change_number_contacts.json",
+      "manifest.json",
+      "client_search.php",
+      "metadata.json",
+      "verification.php",
+      "debuginfo.json",
+      "payments_error_map.json",
+      "ephemeral_settings_lottie_animation.json",
+      "/DCIM/Camera",
+      "/native-libs/",
+      "/timer/stop:",
+      "/cgroup",
+      "/bg_non_interactive",
+      "/dev/null",
+   ]
+}
+```
 
+`subdomains`
+------------
+To request subdomains associated with a domain
+```bash
+$ bevigil-cli enum subdomains --domain "dreamplug.in"
+```
+```
+{
+   "domain": "dreamplug.in",
+   "subdomains": [
+      "app-webview.dreamplug.in",
+      "webview-prod.dreamplug.in",
+      "merchant-app-prod.dreamplug.in",
+      "app-prod.dreamplug.in"
+   ]
+}
+```
+
+`hosts`
+------------
+To request all the hostnames extracted from an android package
+```bash
+$ bevigil-cli enum hosts --package "com.whatsapp"
+```
+```
+{
+   "package_id": "com.whatsapp",
+   "hosts": [
+      "faq.whatsapp.com",
+      "play.google.com",
+      "crashlogs.whatsapp.net",
+      "www.whatsapp.com",
+      "xmlpull.org",
+      "wa.me",
+      "static.whatsapp.net",
+      "ns.adobe.com",
+      "maps.instagram.com",
+      "expresswifi.com",
+      "graph.facebook.com",
+      "www.facebook.com",
+      "whatsapp.com",
+      "www.messenger.com",
+      "maps.google.com",
+   ]
+}
+```
+
+`packages`
+------------
+To request all the packages associated with a domain or subdomain.
+There is a distinction between domain and subdomain in this command. So the appropriate flag should be used depending upon the type of input.
+This command returns all the packages that contains an occurence of the input domain/subdomain.
+
+* Requesting packages for domain
+```bash
+$ bevigil-cli enum packages --domain "dreamplug.in"
+```
+
+* Requesting packages for subdomain
+```bash
+$ bevigil-cli enum packages --subdomaindomain "itunes.apple.com"
+```
+```
+{
+   "domain": "dreamplug.in",
+   "packages": [
+      {
+         "package_id": "com.dreamplug.androidapp",
+         "app_name": "CRED: Credit Card Bills & More",
+         "app_version": "2.1.41.13"
+      },
+      {
+         "package_id": "com.dreamplug.credmerchant",
+         "app_name": "Partner Merchant App",
+         "app_version": "1.0.15"
+      }
+   ]
+}
+```
+
+`params`
+------------
+To request all the parameters associated with an android package
+
+```bash
+$ bevigil-cli enum params --package "com.whatsapp"
+```
+```
+{
+   "package_id": "com.whatsapp",
+   "url_params": {
+      "id": [
+         "com.whatsapp.wallpaper"
+      ],
+      "fields": [
+         "base_url,static_base_url,osm_config,url_overr..."
+      ],
+      "cat": [
+         "all"
+      ],
+      "phone": [
+         "%s"
+      ],
+      "text": [
+         "%s"
+      ],
+      "q": [
+         "WAStickerApps"
+      ],
+      "c": [
+         "apps"
+      ],
+      "product_type": [
+         "payments_p2p_fbpay"
+      ],
+      "india": [
+         "1"
+      ]
+   }
+}
+```
+
+`s3`
+------------
+To request all the S3 buckets associated with a package name or a specific keyword.
+
+* Requesting s3 data associated with an android package
+```bash
+$ bevigil-cli enum s3 --package "com.example.app"
+```
+
+* Requesting s3 data based on a keyword
+```bash
+$ bevigil-cli enum s3 --keyword "healthcare"
+```
+
+```
+{
+   "keyword": "healthcare",
+   "s3_buckets": [
+      "https://s3-ap-southeast-1.amazonaws.com/upay-pub-assets/merchant/logo/ceylinco-healthcare.png",
+      "https://s3.ap-south-1.amazonaws.com/medgreenhealthcarelive/",
+      "https://med360.s3.amazonaws.com/prod/cuc/healthcare_service/cuc_default.jpg",
+      "https://healthcare-lp-537983768107.s3-ap-northeast-1.amazonaws.com/webview/terms/arida.html",
+      "https://healthcare-lp-537983768107.s3-ap-northeast-1.amazonaws.com/webview/arida_use_guide/index.html",
+   ]
+}
+```
+
+`urls`
+------------
+To request all the parameters associated with an android package
+
+```bash
+$ bevigil-cli enum urls --domain "example.com"
+```
+```
+{
+   "domain": "example.com",
+   "urls": [
+      "http://example.com#optional",
+      "http://example.com/ANamespace\\",
+      "http://example.com/wrapperA-linear-clicktracking3",
+      "http://example.com/wrapperB-linear-progress-60%",
+      "https://example.com:8080/somewhere/over/the/rainbow",
+      "https://www.example.com/resultadotpvzaragoza/prueba",
+      "http://example.com/wrapperB-linear-clickthrough",
+   ]
+}
 ```
