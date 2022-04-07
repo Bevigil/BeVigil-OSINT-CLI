@@ -13,8 +13,14 @@ DESCRIPTION = "OSINT cli"
 LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESC_TYPE = "text/markdown"
 
-with open("requirements.txt") as f:
-    INSTALL_REQUIRES = [line.rstrip() for line in f]
+INSTALL_REQUIRES = [
+    "certifi==2021.10.8"
+    "charset-normalizer==2.0.12" ,
+    "click==8.1.2" ,
+    "idna==3.3" ,
+    "requests==2.27.1" ,
+    "urllib3==1.26.9"
+]
 
 setuptools.setup(
     name=PACKAGE_NAME,
@@ -30,7 +36,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: Apache License 2.0",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
