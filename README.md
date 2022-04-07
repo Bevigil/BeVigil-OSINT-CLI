@@ -47,5 +47,25 @@ Enumeration
 Once the API key is configured, you can request BeVigil's OSINT API for different types of assets. The ``enum`` command consists of subcommands to enumerate different assets collected by BeVigil OSINT API. Following are all the supported subcommands under ``enum`` group including their options.
 
 ```
+  Enumerate assets using BeVigil OSINT API
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  hosts       Request hosts present in an android package
+  packages    Request packages associated associated with a domain/subdomain
+  params      Request params associated with an android package
+  s3          Request S3 buckets associated with a package or a keyword
+  subdomains  Request subdomains associated with a domain
+  urls        Request URLs associated with a domain
+  wordlist    Request a wordlist for a package
+```
+
+Examples
+------------
+
+* To request a wordlist crafted from an android pacakge:
+```bash
 
 ```
