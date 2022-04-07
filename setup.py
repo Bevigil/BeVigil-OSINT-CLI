@@ -2,14 +2,14 @@ import setuptools
 import pathlib
 
 HERE = pathlib.Path(__file__).parent
-VERSION = "1.0.4"
+VERSION = "1.0.6"
 PACKAGE_NAME = "bevigil-cli"
 AUTHOR = "Bevigil"
 AUTHOR_EMAIL = "bevigil@cloudsek.com"
 URL = "https://osint.bevigil.com/"
 
 LICENSE = "Apache License 2.0"
-DESCRIPTION = "OSINT cli"
+DESCRIPTION = "BeVigil OSINT CLI"
 LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESC_TYPE = "text/markdown"
 
