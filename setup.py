@@ -2,7 +2,7 @@ import setuptools
 import pathlib
 
 HERE = pathlib.Path(__file__).parent
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 PACKAGE_NAME = "bevigil-cli"
 AUTHOR = "Bevigil"
 AUTHOR_EMAIL = "bevigil@cloudsek.com"
