@@ -2,7 +2,7 @@ import setuptools
 import pathlib
 
 HERE = pathlib.Path(__file__).parent
-VERSION = "1.0.6"
+VERSION = "1.0.7"
 PACKAGE_NAME = "bevigil-cli"
 AUTHOR = "Bevigil"
 AUTHOR_EMAIL = "bevigil@cloudsek.com"
@@ -13,14 +13,8 @@ DESCRIPTION = "BeVigil OSINT CLI"
 LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESC_TYPE = "text/markdown"
 
-INSTALL_REQUIRES = [
-    "certifi==2021.10.8"
-    "charset-normalizer==2.0.12" ,
-    "click==8.1.2" ,
-    "idna==3.3" ,
-    "requests==2.27.1" ,
-    "urllib3==1.26.9"
-]
+with open("requirements.txt" , "r") as f:
+    INSTALL_REQUIRES = [data.rstrip() for data in f]
 
 setuptools.setup(
     name=PACKAGE_NAME,
@@ -36,7 +30,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
