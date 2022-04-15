@@ -266,3 +266,24 @@ $ bevigil-cli enum urls --domain "example.com"
    ]
 }
 ```
+
+## Tab Autocompletion
+For auto completion of commands, user needs to write specific entry to their shell file.
+
+Bash 
+------
+```bash
+$ eval "$(_BEVIGIL_CLI_COMPLETE=bash_source bevigil-cli)" >> ~/.bashrc
+```
+
+Zsh
+-------
+```bash
+$ eval "$(_BEVIGIL_CLI_COMPLETE=zsh_source bevigil-cli)" >> ~/.zshrc
+```
+
+Fish
+-------
+```bash
+$ eval (env _BEVIGIL_CLI_COMPLETE=fish_source bevigil-cli) >> ~/.config/fish/completions/foo-bar.fish
+```
