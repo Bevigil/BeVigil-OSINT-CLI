@@ -100,7 +100,6 @@ def init(api_key , autocomplete):
         click.echo(click.style("Command autocompletion enabled, Please restart your terminal" , fg = "yellow"))
 
 
-
 @enum.command("packages", short_help="Request packages associated associated with a domain/subdomain")
 @click.option("--domain", type=str, help="domain", metavar="<domain>")
 @click.option("--subdomain", type=str, help="subdomain", metavar="<subdomain>")
