@@ -31,7 +31,8 @@ def enum():
 
 @cli.command("init")
 @click.option("--api-key", help="API Key to use", type=str, metavar="<API Key>", required=True)
-def init(api_key):
+@click.option("--autocomplete" , help = "Enable commands and options autocompletion" , is_flag = True , required = False)
+def init(api_key , autocomplete):
     """Initialize bevigil-cli using API key"""
     # Creating config directory
     bevigil_dir = os.path.expanduser(BEVIGIL_CONFIG_DIR)
@@ -55,6 +56,48 @@ def init(api_key):
 
     # Make the file read only
     os.chmod(api_key_file, 0o600)
+
+    # For autocompletion
+    if autocomplete:
+        autocomplete_shell_map = {
+            "bash" : {
+                "path" : os.path.expanduser("~/.bashrc") ,
+                "command" : 'eval "$(_BEVIGIL_CLI_COMPLETE=bash_source bevigil-cli)"'
+            } ,
+            "zsh" : {
+                "path" : os.path.expanduser("~/.zshrc") ,
+                "command" : 'eval "$(_BEVIGIL_CLI_COMPLETE=zsh_source bevigil-cli)"'
+            } ,
+            "fish" : {
+                "path" : os.path.expanduser("~/.config/fish/completions/foo-bar.fish") ,
+                "command" : 'eval (env _BEVIGIL_CLI_COMPLETE=fish_source bevigil-cli)'
+            }
+        }
+        shell = os.environ["SHELL"]
+        shell_file = ""
+        shell_payload = ""
+        
+        if "bash" in shell:
+            shell_file = autocomplete_shell_map["bash"]["path"]
+            shell_payload = autocomplete_shell_map["bash"]["command"]
+        elif "zsh" in shell:
+            shell_file = autocomplete_shell_map["zsh"]["path"]
+            shell_payload = autocomplete_shell_map["zsh"]["command"]
+        elif "fish" in shell:
+            shell_file = autocomplete_shell_map["fish"]["path"]
+            shell_payload = autocomplete_shell_map["fish"]["command"]
+        else:
+            raise click.ClickException(click.style("Unsupported shell for autocompletion" , fg = "yellow"))
+
+        # Write entry in the shell file
+        try:
+            with open(shell_file , "a") as rc_file:
+                rc_file.write("# For bevigil-cli command automation\n")
+                rc_file.write(shell_payload + "\n")
+        except Exception:
+            raise click.ClickException(click.style(f"Unable to write {shell_file}" , fg = "red"))
+        
+        click.echo(click.style("Command autocompletion enabled, Please restart your terminal" , fg = "yellow"))
 
 
 @enum.command("packages", short_help="Request packages associated associated with a domain/subdomain")
