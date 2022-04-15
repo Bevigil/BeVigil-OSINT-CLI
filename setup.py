@@ -2,7 +2,7 @@ import setuptools
 import pathlib
 
 HERE = pathlib.Path(__file__).parent
-VERSION = "1.0.7"
+VERSION = "1.0.8"
 PACKAGE_NAME = "bevigil-cli"
 AUTHOR = "Bevigil"
 AUTHOR_EMAIL = "bevigil@cloudsek.com"
@@ -33,7 +33,7 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     entry_points={
         "console_scripts": [
             "bevigil-cli = bevigil.cli:main"

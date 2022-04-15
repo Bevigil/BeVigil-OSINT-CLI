@@ -87,7 +87,7 @@ def init(api_key , autocomplete):
             shell_file = autocomplete_shell_map["fish"]["path"]
             shell_payload = autocomplete_shell_map["fish"]["command"]
         else:
-            raise click.ClickException("Unsupported shell for autocompletion")
+            raise click.ClickException(click.style("Unsupported shell for autocompletion" , fg = "yellow"))
 
         # Write entry in the shell file
         try:
@@ -95,9 +95,9 @@ def init(api_key , autocomplete):
                 rc_file.write("# For bevigil-cli command automation\n")
                 rc_file.write(shell_payload + "\n")
         except Exception:
-            raise click.ClickException(f"Unable to write {shell_file}")
+            raise click.ClickException(click.style(f"Unable to write {shell_file}" , fg = "red"))
         
-        click.echo("Command autocompletion enabled, Please restart your terminal session")
+        click.echo(click.style("Command autocompletion enabled, Please restart your terminal" , fg = "yellow"))
 
 
 
