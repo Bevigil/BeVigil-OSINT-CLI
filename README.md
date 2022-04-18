@@ -268,22 +268,32 @@ $ bevigil-cli enum urls --domain "example.com"
 ```
 
 ## Tab Autocompletion
+Tab autocompletion of commands can be activated either by adding an entry manually to your shell config file or using bevigil-cli inbuilt option.
+
+Manually
+---------
 For auto completion of commands, user needs to write specific entry to their shell file.
 
-Bash 
-------
+### Bash
 ```bash
 $ eval "$(_BEVIGIL_CLI_COMPLETE=bash_source bevigil-cli)" >> ~/.bashrc
 ```
 
-Zsh
--------
+### Zsh
 ```bash
 $ eval "$(_BEVIGIL_CLI_COMPLETE=zsh_source bevigil-cli)" >> ~/.zshrc
 ```
 
-Fish
--------
+### Fish
 ```bash
 $ eval (env _BEVIGIL_CLI_COMPLETE=fish_source bevigil-cli) >> ~/.config/fish/completions/foo-bar.fish
 ```
+
+Automatically
+---------------
+```bash
+$ bevigil-cli init --api-key <api_key> --autocomplete
+```
+This command allows bevigil-cli to automatically detect your shell type and write appropriate shell config file with correct entry.
+
+Once the entry is added, user needs to restart the terminal for the changes to take effect.
