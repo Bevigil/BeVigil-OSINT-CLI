@@ -297,3 +297,38 @@ $ bevigil-cli init --api-key <api_key> --autocomplete
 This command allows bevigil-cli to automatically detect your shell type and write appropriate shell config file with correct entry.
 
 Once the entry is added, user needs to restart the terminal for the changes to take effect.
+
+
+Code Integration
+------------------
+To integrate the tool in your project, simply import the `BeVigil` class from `bevigil` package.
+
+```
+In [1]: from bevigil import BeVigil
+
+In [2]: bevigil = BeVigil(api_key = "API_KEY")
+
+In [3]: packages = bevigil.getPackagesFromDomain(domain = "netflix.com")
+
+In [4]: wordlist = bevigil.getUrlsFromDomain(domain = "netflix.com")
+```
+
+Every asset that can be obtained from CLI is accessible through these functions. Following is the list of available functions that you can use in your project to query BeVigil API to extract data.
+
+* `getHostsFromPackage(package_id)` => Takes package ID of an android application as argument and returns JSON data containing hosts extracted from that pacakge.
+
+* `getPackagesFromDomain(domain)` => Takes domain as argument and returns JSON data containing android package IDs associated with that domain.
+
+* `getPackagesFromSubdomain(subdomain)` => Takes subdomain as argument and returns JSON data containing android package IDs associated with that subdomain.
+
+* `getParamsFromPackage(package_id)` => Takes package ID of an android application as argument and returns JSON data containing URL parameters associated with that package ID.
+
+* `getS3bucketsFromKeyword(keyword)` => Takes a keyword as argument and returns JSON data containing S3 bucket URLs associated with the keyword.
+
+* `getS3bucketsFromPackage(package_id)` => Takes package ID of an android application as argument and returns JSON data containing S3 bucket URLs associated with the package ID.
+
+* `getSubdomainsFromDomain(domain)` => Takes domain as argument and returns JSON data containing subdomains associated with the domain.
+
+* `getUrlsFromDomain(domain)` => Takes domain as argument and returns JSON data containing URLs associated with the domain.
+
+* `getWordlistFromPackage(package_id)` => Takes package ID of an android application as argument and returns JSON data containing a wordlist associated with the package ID.
