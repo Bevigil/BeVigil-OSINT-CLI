@@ -3,7 +3,7 @@ bevigil-cli
 
 ![](./static/logo.png)
 
-This package provides a unified command line interface and python library for using BeVigil OSINT API.
+`bevigil-cli` provides a unified command line interface and python library for using BeVigil OSINT API.
 
 Getting Started
 ---------------
@@ -14,14 +14,14 @@ Installation
 The easiest way to install the BeVigil OSINT CLI is to use [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
-   $ pip3 install bevigil-cli
+$ pip3 install bevigil-cli
 ```
 
 If you already have the bevigil-cli package installed and want to upgrade to the
 latest version, you can run:
 
 ```bash
-   $ pip3 install --upgrade bevigil-cli
+$ pip3 install --upgrade bevigil-cli
 ```
 
 This will install the bevigil-cli package as well as all dependencies.
@@ -30,12 +30,6 @@ This will install the bevigil-cli package as well as all dependencies.
 ## Usage
 ------------
 
-Demo
-------
-
-![](./static/demo.gif)
-
-
 Initialization
 ------------
 
@@ -43,7 +37,7 @@ Before using the bevigil-cli to extract assets, you need to configure your api k
 You can do this using the ``init`` command:
 
 ```bash
-   $ bevigil-cli init --api-key <API_KEY>
+$ bevigil-cli init --api-key <API_KEY>
 ```
 
 To get an API key, you can register at [BeVigil's website](https://bevigil.com/osint-api)
@@ -275,6 +269,15 @@ $ bevigil-cli enum urls --domain "example.com"
 }
 ```
 
+### Demonstration
+---
+The following media demonstrates how `bevigil-cli` can be used for:
+* Extracting URL parameters associated with an android package ID
+* Extracting subdomains associated with a domain
+
+![](./static/cmd_demo.gif)
+
+
 ## Tab Autocompletion
 Tab autocompletion of commands can be activated either by adding an entry manually to your shell config file or using bevigil-cli inbuilt option.
 
@@ -322,9 +325,10 @@ In [4]: wordlist = bevigil.getUrlsFromDomain(domain = "netflix.com")
 ```
 
 ### Demo
-------------
+---------
+The following media demonstrates how BeVigil class can be utilized for extraction of assets.
 
-![](./static/cmd_demo.gif)
+![](./static/code_demo.gif)
 
 Every asset that can be obtained from CLI is accessible through these functions. Following is the list of available functions that you can use in your project to query BeVigil API to extract data.
 
