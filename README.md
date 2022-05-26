@@ -1,6 +1,8 @@
 bevigil-cli
 =================
 
+![](./static/logo.png)
+
 This package provides a unified command line interface and python library for using BeVigil OSINT API.
 
 Getting Started
@@ -9,7 +11,7 @@ Getting Started
 Installation
 ------------
 
-The safest way to install the BeVigil OSINT CLI is to use [pip](https://pip.pypa.io/en/stable/):
+The easiest way to install the BeVigil OSINT CLI is to use [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
    $ pip3 install bevigil-cli
@@ -25,8 +27,14 @@ latest version, you can run:
 This will install the bevigil-cli package as well as all dependencies.
 
 
-Usage
+## Usage
 ------------
+
+Demo
+------
+
+![](./static/demo.gif)
+
 
 Initialization
 ------------
@@ -299,7 +307,7 @@ This command allows bevigil-cli to automatically detect your shell type and writ
 Once the entry is added, user needs to restart the terminal for the changes to take effect.
 
 
-Code Integration
+## Code Integration
 ------------------
 To integrate the tool in your project, simply import the `BeVigil` class from `bevigil` package.
 
@@ -312,6 +320,10 @@ In [3]: packages = bevigil.getPackagesFromDomain(domain = "netflix.com")
 
 In [4]: wordlist = bevigil.getUrlsFromDomain(domain = "netflix.com")
 ```
+
+### Demo
+------------
+![](./static/cmd_demo.gif)
 
 Every asset that can be obtained from CLI is accessible through these functions. Following is the list of available functions that you can use in your project to query BeVigil API to extract data.
 
