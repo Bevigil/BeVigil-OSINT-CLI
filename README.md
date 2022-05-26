@@ -323,6 +323,7 @@ In [4]: wordlist = bevigil.getUrlsFromDomain(domain = "netflix.com")
 
 ### Demo
 ------------
+
 ![](./static/cmd_demo.gif)
 
 Every asset that can be obtained from CLI is accessible through these functions. Following is the list of available functions that you can use in your project to query BeVigil API to extract data.
