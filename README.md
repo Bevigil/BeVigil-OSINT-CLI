@@ -158,8 +158,10 @@ $ bevigil-cli enum packages --domain "dreamplug.in"
 
 * Requesting packages for subdomain
 ```bash
-$ bevigil-cli enum packages --subdomaindomain "itunes.apple.com"
+$ bevigil-cli enum packages --subdomain "itunes.apple.com"
 ```
+
+Packages associated with domain "dreamplug.in":
 ```
 {
    "domain": "dreamplug.in",
