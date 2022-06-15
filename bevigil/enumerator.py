@@ -79,7 +79,7 @@ class BeVigil:
         name : Packages
         type : dict
         """
-        return self._request(f"/api/{subdomain}/getAppsX")
+        return self._request(f"/api/{subdomain}/apps/")
 
     def getParamsFromPackage(self, package_id):
         """
